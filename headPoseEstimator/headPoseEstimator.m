@@ -3,11 +3,22 @@ face = getfield(SamplePoints,'landmarks');
 [ leftEye, rightEye, nose, mouthLeft, mouthRight, chin ] = get2DPoints( face );
 image_points = [nose;chin;leftEye;rightEye;mouthLeft;mouthRight];
 model_points = [0,0,0;0,-330,-65;-225,-170,-135;225,170,-135;-150,-150,-125;150,-150,-125];
-img = imread('sample2.jpg');
-img_size = size(img);
-focalLength = img_size(2);
-camera_matrix = [focalLength,0,img_size(2)/2;0,focalLength,img_size(1)/2;0,0,1];
-[rvec, tvec, success] = cv.solvePnP(model_points, image_points, camera_matrix);
-posePoints = cv.projectPoints(model_points, rvec, tvec, camera_matrix);
-img = cv.line(img, image_points(1,:),posePoints(1,:));
-imshow(img);
+img = load('sample2.mat');
+image = getfield(img,'im');
+ret = load('matlab3D')
+newret = getfield(ret,'cameraParams');
+focalLength = getfield(newret,'FocalLength');
+opticalCentre = getfield(newret,'PrincipalPoint');
+img_size = size(image);
+%focalLength = img_size(2);
+camera_matrix = [focalLength(2),0,opticalCentre(2);0,focalLength(1),opticalCentre(1);0,0,1];
+[rvec, tvec, success] = cv.solvePnP(model_points, image_points, camera_matrix,'Method', 'Iterative');
+
+[posePoints, jacobian] = cv.projectPoints(model_points, rvec, tvec, camera_matrix);
+for i = 1:length(image_points) 
+    image = cv.circle(image, [image_points(i,1),image_points(i,2)], 3);
+end
+point1 = [image_points(1,1),image_points(1,2)];
+point2 = [fix(posePoints(1,1)),fix(posePoints(1,2))];
+image = cv.line(image, point1,point2);
+imshow(image);

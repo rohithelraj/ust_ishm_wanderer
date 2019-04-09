@@ -8,6 +8,5 @@ img_size = size(img);
 focalLength = img_size(2);
 camera_matrix = [focalLength,0,img_size(2)/2;0,focalLength,img_size(1)/2;0,0,1];
 [rvec, tvec, success] = cv.solvePnP(model_points, image_points, camera_matrix);
-posePoints = cv.projectPoints(model_points, rvec, tvec, camera_matrix);
-img = cv.line(img, image_points(1,:),posePoints(1,:));
-imshow(img);
+imagePoints = cv.projectPoints(model_points, rvec, tvec, camera_matrix);
+img = cv.line(img, imagePoints(1,:), );

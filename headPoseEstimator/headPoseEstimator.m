@@ -1,13 +1,13 @@
-%SamplePoints = load('landmarksSample2.mat');
-%face = getfield(SamplePoints,'landmarks');
-SamplePoints = load('landmarksSample3.mat');
-output = getfield(SamplePoints,'output');
-faces = getfield(output,'faces');
-face = getfield(faces,'landmarks');
+SamplePoints = load('landmarksSample2.mat');
+face = getfield(SamplePoints,'landmarks');
+%SamplePoints = load('landmarksSample3.mat');
+%output = getfield(SamplePoints,'output');
+%faces = getfield(output,'faces');
+%face = getfield(faces,'landmarks');
 [ leftEye, rightEye, nose, mouthLeft, mouthRight, chin ] = get2DPoints( face );
 image_points = [nose;chin;leftEye;rightEye;mouthLeft;mouthRight];
 model_points = [0,0,0;0,-330,-65;-225,170,-135;225,170,-135;-150,-150,-125;150,-150,-125];
-img = load('sample3.mat');
+img = load('sample2.mat');
 image = getfield(img,'im');
 ret = load('matlab3D')
 newret = getfield(ret,'cameraParams');
@@ -25,4 +25,7 @@ end
 point1 = [image_points(1,1),image_points(1,2)];
 point2 = [fix(posePoints(1,1)),fix(posePoints(1,2))];
 image = cv.line(image, point1,point2,'Color',[0,255,0],'Thickness',5);
+image = cv.line(image, [image_points(2,1),image_points(2,2)],[fix(posePoints(2,1)),fix(posePoints(2,2))],'Color',[0,255,0],'Thickness',5);
+image = cv.line(image, [image_points(3,1),image_points(3,2)],[fix(posePoints(3,1)),fix(posePoints(3,2))],'Color',[0,255,0],'Thickness',5);
+
 imshow(image);

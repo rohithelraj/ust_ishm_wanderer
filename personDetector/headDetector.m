@@ -5,7 +5,7 @@ bodyDetector.MinSize = [60 60];
 bodyDetector.MergeThreshold = 1;
 bodyDetector.UseROI = true;
 
-I2 = imread('COCO_test2015_000000000780.jpg'); 
+I2 = imread('COCO_test2015_000000000439.jpg'); 
 
 % Search for objects in the top half of the image.
 [height, width, ~] = size(I2);

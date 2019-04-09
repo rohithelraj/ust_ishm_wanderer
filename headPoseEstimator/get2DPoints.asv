@@ -1,0 +1,7 @@
+function [ leftEye, rightEye, nose, mouthLeft, mouthRight, chin ] = get2DPoints( facePoints )
+%GET2DPOINTS Summary of this function goes here
+%   Detailed explanation goes here
+    leftEye = face
+
+end
+

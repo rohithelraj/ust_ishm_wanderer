@@ -10,7 +10,7 @@ addpath(genpath(landmarksFilePath))
 %% read image
     %coordinates = imread('coordinates.PNG');
     %cam = ipcam('http://172.16.9.227:8080/stream'); %initializing webcam
-    im = imread('sampleImage4.jpeg'); %loading image from camera
+    im = imread('sampleImage1.jpeg'); %loading image from camera
     %for idx = 1:10 %lazy loading image
      %   im = snapshot('http://172.16.9.227:8080/stream/snapshot.jpeg');
     %end
